@@ -130,7 +130,7 @@
 
                 </div>
             </div>
-            <div class="twelve wide column" style="height: 100%; background-color: lightgrey;">
+            <div class="twelve wide column" style="height: 100%; background-color: white; border-left: solid 5px; ">
                 <div id="container" style="height: 100%;" style="position: relative">
                     <div id="start" style="height: 100%;"></div>
 
@@ -148,7 +148,6 @@
     <script>
         var indexCounter = 0;
         var elements = [];
-        var adder = 100000;
 
 
         function exportToXML() {
@@ -195,7 +194,7 @@
         }
 
         function addElementToList(id, type, text) {
-            var elementToAdd = new ElementDataType(id, type, text, "-1", "-1");
+            var elementToAdd = new ElementDataType(id, type, text, "0", "0");
             elements.push(elementToAdd);
             populateTable();
         }
@@ -253,7 +252,7 @@
 
         function add_button() {
             var text = document.getElementById('text_content').value;
-            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class="ui input"><button class="ui button">' + text + '</button></div>');
+            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class="ui input"><button class="ui button disabled">' + text + '</button></div>');
             var currentButtonCount = parseInt($('#button_count').html());
             button_count.innerHTML = currentButtonCount + 1;
 
