@@ -130,8 +130,8 @@
 
                 </div>
             </div>
-            <div class="twelve wide column" style="height: 100%; background-color: white; border-left: solid 5px; ">
-                <div id="container" style="height: 100%;" style="position: relative">
+            <div class="twelve wide column" style="height: 100%; background-color: lightgray; border-left: solid 5px; ">
+                <div id="container" style="height: 750px; width: 1250px;" style="position: relative">
                     <div id="start" style="height: 100%;"></div>
 
 
@@ -232,7 +232,7 @@
 
         function add_label() {
             var text = document.getElementById('text_content').value;
-            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <h1 class="ui header"> ' + text + '</h1></div>');
+            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: 20px;"> ' + text + '</div></div>');
             var currentLabelCount = parseInt($('#label_count').html());
             label_count.innerHTML = currentLabelCount + 1;
 
@@ -245,7 +245,7 @@
 
         function add_textfield() {
             var text = document.getElementById('text_content').value;
-            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class="ui input"><input type="text" placeholder="' + text + '"></div></div>');
+            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: 20px;" type="text" placeholder="' + text + '"></div></div>');
             var currentTextfieldCount = parseInt($('#textfield_count').html());
             textfield_count.innerHTML = currentTextfieldCount + 1;
 
@@ -256,7 +256,7 @@
 
         function add_button() {
             var text = document.getElementById('text_content').value;
-            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class="ui input"><button class="ui button disabled">' + text + '</button></div>');
+            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: 20px;" class="" disabled>' + text + '</button></div>');
             var currentButtonCount = parseInt($('#button_count').html());
             button_count.innerHTML = currentButtonCount + 1;
 
