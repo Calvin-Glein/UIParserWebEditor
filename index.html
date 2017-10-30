@@ -160,16 +160,16 @@
                 if (elements[i].id != -1) {
                     xml.BeginNode("Element");
                     xml.BeginNode("Type");
-                    xml.WriteString(elements[i].type);
+                    xml.WriteString(elements[i].type.toString());
                     xml.EndNode();
                     xml.BeginNode("Text");
-                    xml.WriteString(elements[i].text);
+                    xml.WriteString(elements[i].text.toString());
                     xml.EndNode();
                     xml.BeginNode("XCoordinate");
-                    xml.WriteString(elements[i].xCoordinate);
+                    xml.WriteString(elements[i].xCoordinate.toString());
                     xml.EndNode();
                     xml.BeginNode("YCoordinate");
-                    xml.WriteString(elements[i].yCoordinate);
+                    xml.WriteString(elements[i].yCoordinate.toString());
                     xml.EndNode();
 
 
@@ -268,13 +268,7 @@
 
     <script>
         interact('.draggable')
-            .draggable({ snap: {
-      targets: [
-        interact.createSnapGrid({ x: 30, y: 30 })
-      ],
-      range: Infinity,
-      relativePoints: [ { x: 0, y: 0 } ]
-    },
+            .draggable({ 
                 // enable inertial throwing
                 inertia: true,
                 // keep the element within the area of it's parent
