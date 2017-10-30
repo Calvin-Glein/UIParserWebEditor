@@ -323,8 +323,8 @@
             /*pass data to populateTable*/
             var elementDraggedID = parseInt(event.target.querySelector('p').id);
             var indexInElementsArray = elements.findIndex(z => z.id == elementDraggedID)
-            elements[indexInElementsArray].xCoordinate = x.toFixed(3);
-            elements[indexInElementsArray].yCoordinate = y.toFixed(3);
+            elements[indexInElementsArray].xCoordinate = Math.trunc(x);
+            elements[indexInElementsArray].yCoordinate = Math.trunc(y);
             populateTable();
 
         }
