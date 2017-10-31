@@ -147,6 +147,8 @@
                                 <th>Y</th>
                                 <th>Height</th>
                                 <th>Width</th>
+                                <th>FontSize</th>
+
                                 <th></th>
 
                             </tr>
@@ -241,18 +243,21 @@
             populateTable();
         }
 
-        function addElementToList(id, type, text) {
-            var elementToAdd = new ElementDataType(id, type, text, "0", "0");
+        function addElementToList(id, type, text, fontSize, width, height) {
+            var elementToAdd = new ElementDataType(id, type, text, "0", "0", fontSize, width, height);
             elements.push(elementToAdd);
             populateTable();
         }
 
-        function ElementDataType(id, type, text, xCoordinate, yCoordinate) {
+        function ElementDataType(id, type, text, xCoordinate, yCoordinate, fontSize, width, height) {
             this.id = id;
             this.type = type;
             this.text = text;
             this.xCoordinate = xCoordinate;
             this.yCoordinate = yCoordinate;
+            this.fontSize = fontSize;
+            this.width = width;
+            this.height = height;
         }
 
         function populateTable() {
@@ -266,6 +271,9 @@
                     tr += "<td>" + elements[i].text + "</td>";
                     tr += "<td>" + elements[i].xCoordinate + "</td>";
                     tr += "<td>" + elements[i].yCoordinate + "</td>";
+                    tr += "<td>" + elements[i].height + "</td>";
+                    tr += "<td>" + elements[i].width + "</td>";
+                    tr += "<td>" + elements[i].fontSize + "</td>";
                     tr += "<td><button onclick = 'deleteElement(this.id)' id = " + elements[i].id + " class='negative ui button fluid'>Delete</button></td>";
                     tr += "</tr>";
                     t += tr;
@@ -289,7 +297,6 @@
             var text = document.getElementById('text_content').value;
             var width = document.getElementById('width_content').value;
             var height = document.getElementById('height_content').value;
-            var height = document.getElementById('height_content').value;
             var fontSize = document.getElementById('font-size_content').value;
 
 
@@ -302,14 +309,13 @@
             label_count.innerHTML = currentLabelCount + 1;
 
 
-            addElementToList(indexCounter, "label", text);
+            addElementToList(indexCounter, "label", text, fontSize, width, height);
             indexCounter = indexCounter + 1;
         }
 
         function add_textfield() {
             var text = document.getElementById('text_content').value;
             var width = document.getElementById('width_content').value;
-            var height = document.getElementById('height_content').value;
             var height = document.getElementById('height_content').value;
             var fontSize = document.getElementById('font-size_content').value;
 
@@ -324,7 +330,7 @@
             var currentTextfieldCount = parseInt($('#textfield_count').html());
             textfield_count.innerHTML = currentTextfieldCount + 1;
 
-            addElementToList(indexCounter, "textfield", text);
+            addElementToList(indexCounter, "textfield", text, fontSize, width, height);
             indexCounter = indexCounter + 1;
         }
 
@@ -338,16 +344,16 @@
 
 
 
-            var toBeAppended = '<div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "  disabled>' + text + '</button></div>';
+            var toBeAppended = '<div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "      disabled>' + text + '</button></div>';
 
-            $("#start").append(toBeAppended);   
+            $("#start").append(toBeAppended);
 
 
             /*   $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: 20px;" class="" disabled>' + text + '</button></div>');*/
             var currentButtonCount = parseInt($('#button_count').html());
             button_count.innerHTML = currentButtonCount + 1;
 
-            addElementToList(indexCounter, "button", text);
+            addElementToList(indexCounter, "button", text, fontSize, width, height);
             indexCounter = indexCounter + 1;
         }
 
