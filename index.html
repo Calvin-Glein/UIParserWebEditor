@@ -7,6 +7,9 @@
     <script type="text/javascript" src="C:\Users\Glenn\Desktop\UI Parser\styles\interact.js"></script>
     <link rel="stylesheet" type="text/css" href="styles\semantic\semantic.css">
     <script type="text/javascript" src="styles\jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="styles\XMLScript.js"></script>
+    <script type="text/javascript" src="styles\Download.js"></script>
+
 
     <style>
         #drag {
@@ -82,10 +85,47 @@
                                 <i class="pencil icon"></i>
                             </div>
                         </div>
+                        <div class="ui form">
+                            <div class="inline fields">
+                                <div class="sixteen wide field">
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Font Size
+                                        </div>
+                                        <input id="font-size_content" type="text" placeholder="20">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <a class="item" onclick="add_label()">
  Label
 <div id="label_count" class="ui teal left pointing label">0</div>
 </a>
+                        <div class="ui form">
+                            <div class="inline fields">
+                                <div class="eight wide field">
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Height
+                                        </div>
+                                        <input id="height_content" type="text" placeholder="20">
+                                    </div>
+                                </div>
+                                <div class="eight wide field">
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Width
+                                        </div>
+                                        <input id="width_content" type="text" placeholder="20">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
                         <a class="item" onclick="add_textfield()">
                             Textfield
                             <div id = "textfield_count" class="ui teal left pointing label">0</div>
@@ -96,7 +136,7 @@
                           </a>
 
                     </div>
-
+                    <br><br>
 
                     <table id="elementTable" class="ui celled table">
                         <thead>
@@ -105,12 +145,16 @@
                                 <th>Content</th>
                                 <th>X</th>
                                 <th>Y</th>
+                                <th>Height</th>
+                                <th>Width</th>
                                 <th></th>
 
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>Add an element</td>
+                                <td>Add an element</td>
                                 <td>Add an element</td>
                                 <td>Add an element</td>
                                 <td>Add an element</td>
@@ -130,8 +174,8 @@
 
                 </div>
             </div>
-            <div class="twelve wide column" style="height: 100%; background-color: lightgray; border-left: solid 5px; ">
-                <div id="container" style="height: 750px; width: 1250px;" style="position: relative">
+            <div class="twelve wide column" style="height: 794px; width: 1366px; background-color: lightgray; border: solid 5px; ">
+                <div id="container" style="height: 768px; width: 1366px;" style="position: relative">
                     <div id="start" style="height: 100%;"></div>
 
 
@@ -231,12 +275,31 @@
         }
 
         function add_label() {
+            /*    var text = document.getElementById('text_content').value;
+                $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: 20px;"> ' + text + '</div></div>');
+                var currentLabelCount = parseInt($('#label_count').html());
+                label_count.innerHTML = currentLabelCount + 1;
+
+                console.log(indexCounter);
+
+
+                addElementToList(indexCounter, "label", text);
+                indexCounter = indexCounter + 1;*/
+
             var text = document.getElementById('text_content').value;
-            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: 20px;"> ' + text + '</div></div>');
+            var width = document.getElementById('width_content').value;
+            var height = document.getElementById('height_content').value;
+            var height = document.getElementById('height_content').value;
+            var fontSize = document.getElementById('font-size_content').value;
+
+
+            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
+
+            $("#start").append(toBeAppended);
+
+            console.log(toBeAppended);
             var currentLabelCount = parseInt($('#label_count').html());
             label_count.innerHTML = currentLabelCount + 1;
-
-            console.log(indexCounter);
 
 
             addElementToList(indexCounter, "label", text);
@@ -245,7 +308,19 @@
 
         function add_textfield() {
             var text = document.getElementById('text_content').value;
-            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: 20px;" type="text" placeholder="' + text + '"></div></div>');
+            var width = document.getElementById('width_content').value;
+            var height = document.getElementById('height_content').value;
+            var height = document.getElementById('height_content').value;
+            var fontSize = document.getElementById('font-size_content').value;
+
+
+
+            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; " placeholder="' + text + '"></div></div>';
+
+            $("#start").append(toBeAppended);
+
+            /*    $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: 20px;" type="text" placeholder="' + text + '"></div></div>');*/
+
             var currentTextfieldCount = parseInt($('#textfield_count').html());
             textfield_count.innerHTML = currentTextfieldCount + 1;
 
@@ -256,7 +331,19 @@
 
         function add_button() {
             var text = document.getElementById('text_content').value;
-            $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: 20px;" class="" disabled>' + text + '</button></div>');
+            var width = document.getElementById('width_content').value;
+            var height = document.getElementById('height_content').value;
+            var height = document.getElementById('height_content').value;
+            var fontSize = document.getElementById('font-size_content').value;
+
+
+
+            var toBeAppended = '<div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "  disabled>' + text + '</button></div>';
+
+            $("#start").append(toBeAppended);   
+
+
+            /*   $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: 20px;" class="" disabled>' + text + '</button></div>');*/
             var currentButtonCount = parseInt($('#button_count').html());
             button_count.innerHTML = currentButtonCount + 1;
 
@@ -268,7 +355,7 @@
 
     <script>
         interact('.draggable')
-            .draggable({ 
+            .draggable({
                 // enable inertial throwing
                 inertia: true,
                 // keep the element within the area of it's parent
@@ -335,100 +422,7 @@
     </script>
 
     <script>
-        function XMLWriter() {
-            this.XML = [];
-            this.Nodes = [];
-            this.State = "";
-            this.FormatXML = function(Str) {
-                if (Str)
-                    return Str.replace(/&/g, "&amp;").replace(/\"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                return ""
-            }
-            this.BeginNode = function(Name) {
-                if (!Name) return;
-                if (this.State == "beg") this.XML.push(">");
-                this.State = "beg";
-                this.Nodes.push(Name);
-                this.XML.push("<" + Name);
-            }
-            this.EndNode = function() {
-                if (this.State == "beg") {
-                    this.XML.push("/>");
-                    this.Nodes.pop();
-                } else if (this.Nodes.length > 0)
-                    this.XML.push("</" + this.Nodes.pop() + ">");
-                this.State = "";
-            }
-            this.Attrib = function(Name, Value) {
-                if (this.State != "beg" || !Name) return;
-                this.XML.push(" " + Name + "=\"" + this.FormatXML(Value) + "\"");
-            }
-            this.WriteString = function(Value) {
-                if (this.State == "beg") this.XML.push(">");
-                this.XML.push(this.FormatXML(Value));
-                this.State = "";
-            }
-            this.Node = function(Name, Value) {
-                if (!Name) return;
-                if (this.State == "beg") this.XML.push(">");
-                this.XML.push((Value == "" || !Value) ? "<" + Name + "/>" : "<" + Name + ">" + this.FormatXML(Value) + "</" + Name + ">");
-                this.State = "";
-            }
-            this.Close = function() {
-                while (this.Nodes.length > 0)
-                    this.EndNode();
-                this.State = "closed";
-            }
-            this.ToString = function() {
-                return this.XML.join("");
-            }
-        }
 
-
-        function downloadXML(strData, strFileName, strMimeType) {
-            var D = document,
-                A = arguments,
-                a = D.createElement("a"),
-                d = A[0],
-                n = A[1],
-                t = A[2] || "text/plain";
-
-            //build download link:
-            a.href = "data:" + strMimeType + "charset=utf-8," + escape(strData);
-
-
-            if (window.MSBlobBuilder) { // IE10
-                var bb = new MSBlobBuilder();
-                bb.append(strData);
-                return navigator.msSaveBlob(bb, strFileName);
-            } /* end if(window.MSBlobBuilder) */
-
-
-
-            if ('download' in a) { //FF20, CH19
-                a.setAttribute("download", n);
-                a.innerHTML = "downloading...";
-                D.body.appendChild(a);
-                setTimeout(function() {
-                    var e = D.createEvent("MouseEvents");
-                    e.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-                    a.dispatchEvent(e);
-                    D.body.removeChild(a);
-                }, 66);
-                return true;
-            }; /* end if('download' in a) */
-
-
-
-            //do iframe dataURL download: (older W3)
-            var f = D.createElement("iframe");
-            D.body.appendChild(f);
-            f.src = "data:" + (A[2] ? A[2] : "application/octet-stream") + (window.btoa ? ";base64" : "") + "," + (window.btoa ? window.btoa : escape)(strData);
-            setTimeout(function() {
-                D.body.removeChild(f);
-            }, 333);
-            return true;
-        }
 
     </script>
 
