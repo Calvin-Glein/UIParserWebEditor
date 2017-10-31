@@ -205,21 +205,38 @@
 
                 if (elements[i].id != -1) {
                     xml.BeginNode("Element");
+                    /**/
                     xml.BeginNode("Type");
                     xml.WriteString(elements[i].type.toString());
                     xml.EndNode();
+
                     xml.BeginNode("Text");
                     xml.WriteString(elements[i].text.toString());
                     xml.EndNode();
+
                     xml.BeginNode("XCoordinate");
                     xml.WriteString(elements[i].xCoordinate.toString());
                     xml.EndNode();
+
                     xml.BeginNode("YCoordinate");
                     xml.WriteString(elements[i].yCoordinate.toString());
                     xml.EndNode();
 
-
+                    xml.BeginNode("FontSize");
+                    xml.WriteString(elements[i].fontSize.toString());
                     xml.EndNode();
+
+                    xml.BeginNode("Height");
+                    xml.WriteString(elements[i].height.toString());
+                    xml.EndNode();
+
+                    xml.BeginNode("Width");
+                    xml.WriteString(elements[i].width.toString());
+                    xml.EndNode();
+                    /**/
+                    xml.EndNode();
+
+
                 }
 
 
