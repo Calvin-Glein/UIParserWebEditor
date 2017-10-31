@@ -78,13 +78,18 @@
                             <div class="sub header">Design layouts on the fly.</div>
                         </div>
                     </h2>
+                    <br>
+
+                    <div class="ui icon input fluid">
+                        <input id="text_content" type="text" placeholder="Insert text">
+                        <i class="pencil icon"></i>
+                    </div>
+
+
+                    <div class="ui horizontal divider">
+                        With
+                    </div>
                     <div class="ui vertical menu fluid">
-                        <div class="item">
-                            <div class="ui transparent icon input">
-                                <input id="text_content" type="text" placeholder="Insert text">
-                                <i class="pencil icon"></i>
-                            </div>
-                        </div>
                         <div class="ui form">
                             <div class="inline fields">
                                 <div class="sixteen wide field">
@@ -97,10 +102,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="item" onclick="add_label()">
- Label
-<div id="label_count" class="ui teal left pointing label">0</div>
-</a>
+                    </div>
+                    <div class="ui vertical menu fluid">
                         <div class="ui form">
                             <div class="inline fields">
                                 <div class="eight wide field">
@@ -121,18 +124,26 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="ui horizontal divider">
+                        As
+                    </div>
+
+                    <div class="ui vertical menu fluid">
 
 
-
-
-
+                        <a class="item" onclick="add_label()">
+ Label
+<div id="label_count" class="ui teal left label">0</div>
+</a>
                         <a class="item" onclick="add_textfield()">
                             Textfield
-                            <div id = "textfield_count" class="ui teal left pointing label">0</div>
+                            <div id = "textfield_count" class="ui teal left label">0</div>
                           </a>
                         <a class="item" onclick="add_button()">
                             Button
-                            <div id = "button_count" class="ui teal left pointing label">0</div>
+                            <div id = "button_count" class="ui teal left label">0</div>
                           </a>
 
                     </div>
@@ -415,27 +426,30 @@
             });
 
         function dragMoveListener(event) {
-            var target = event.target,
-                // keep the dragged position in the data-x/data-y attributes
-                x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-            // translate the element
-            target.style.webkitTransform =
-                target.style.transform =
-                'translate(' + x + 'px, ' + y + 'px)';
+            if (1 == 1) {
+                var target = event.target,
+                    // keep the dragged position in the data-x/data-y attributes
+                    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-            // update the posiion attributes
-            target.setAttribute('data-x', x);
-            target.setAttribute('data-y', y);
+                // translate the element
+                target.style.webkitTransform =
+                    target.style.transform =
+                    'translate(' + x + 'px, ' + y + 'px)';
 
-            /*get id */
-            /*pass data to populateTable*/
-            var elementDraggedID = parseInt(event.target.querySelector('p').id);
-            var indexInElementsArray = elements.findIndex(z => z.id == elementDraggedID)
-            elements[indexInElementsArray].xCoordinate = Math.trunc(x);
-            elements[indexInElementsArray].yCoordinate = Math.trunc(y);
-            populateTable();
+                // update the posiion attributes
+                target.setAttribute('data-x', x);
+                target.setAttribute('data-y', y);
+
+                /*get id */
+                /*pass data to populateTable*/
+                var elementDraggedID = parseInt(event.target.querySelector('p').id);
+                var indexInElementsArray = elements.findIndex(z => z.id == elementDraggedID)
+                elements[indexInElementsArray].xCoordinate = Math.trunc(x);
+                elements[indexInElementsArray].yCoordinate = Math.trunc(y);
+                populateTable();
+            }
 
         }
 
