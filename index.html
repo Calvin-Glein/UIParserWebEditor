@@ -32,13 +32,20 @@
         }
 
     </style>
+    <script>
+        /*   $(document).ready(function() {
+                                                                                                                                                            $('.ui.dropdown')
+                                                                                                                                                                .dropdown();
+                                                                                                                                                        });*/
+
+    </script>
 
 
 
 </head>
 
 <body>
-    <div class="ui container" style="background-color: white; height: 100%;">
+    <div class=" container" style="background-color: white; height: 100%;">
         <div class="ui grid" style="height: 100%;">
             <div class="four wide column" style="height: 100%; background-color: white; overflow:auto; ">
                 <!-- <h2 class="ui header ">
@@ -80,55 +87,130 @@
                     </h2>
                     <br>
 
+
+                    <h3 class="ui dividing header">
+                        Current Layer
+                    </h3>
+
+                    <select class="ui fluid search dropdown" id="current_layer_dropdown">
+            <option value="1">1</option>
+          </select>
+
+                    <br>
+
+
+                    <h3 class="ui dividing header">
+                        Add Element
+                    </h3>
+
                     <div class="ui icon input fluid">
                         <input id="text_content" type="text" placeholder="Insert text">
                         <i class="pencil icon"></i>
                     </div>
 
 
-                    <div class="ui horizontal divider">
-                        With
-                    </div>
-                    <div class="ui vertical menu fluid">
-                        <div class="ui form">
-                            <div class="inline fields">
-                                <div class="sixteen wide field">
-                                    <div class="ui labeled input">
-                                        <div class="ui label">
-                                            Font Size
-                                        </div>
-                                        <input id="font-size_content" type="text" placeholder="20">
+                    <h4 class="ui dividing header">
+                        Set Look
+                    </h4>
+                    <!-- <div class="ui form">
+                        <div class="inline fields">
+                            <div class="sixteen wide field">
+                                <div class="ui labeled input">
+                                    <div class="ui label">
+                                        Font Size
                                     </div>
+                                    <input id="font-size_content" type="text" placeholder="20">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="ui vertical menu fluid">
-                        <div class="ui form">
-                            <div class="inline fields">
-                                <div class="eight wide field">
-                                    <div class="ui labeled input">
-                                        <div class="ui label">
-                                            Height
-                                        </div>
-                                        <input id="height_content" type="text" placeholder="20">
-                                    </div>
-                                </div>
-                                <div class="eight wide field">
-                                    <div class="ui labeled input">
-                                        <div class="ui label">
-                                            Width
-                                        </div>
-                                        <input id="width_content" type="text" placeholder="20">
-                                    </div>
-                                </div>
-                            </div>
+                    </div>-->
+                    <div class="ui labeled input fluid">
+                        <div class="ui label">
+                            Font Size
                         </div>
+                        <input id="font-size_content" type="text" placeholder="20">
+                    </div>
+                    <div class="ui labeled input fluid">
+                        <div class="ui label">
+                            Height
+                        </div>
+                        <input id="height_content" type="text" placeholder="20">
                     </div>
 
-                    <div class="ui horizontal divider">
-                        As
+                    <div class="ui labeled input fluid">
+                        <div class="ui label">
+                            Width
+                        </div>
+                        <input id="width_content" type="text" placeholder="100">
                     </div>
+                    <!--
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <div class="eight wide field">
+
+                            </div>
+                            <div class="eight wide field">
+
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <h4 class="ui dividing header">
+                        Set Layer
+                    </h4>
+
+
+                    <form class="ui form">
+
+
+
+                        <!--
+                        <h4 class="ui dividing header">Billing Information</h4>
+-->
+
+                        <div class="fields">
+
+                            <div class="sixteen wide field">
+<!--
+                                <label>Layer</label>
+-->
+                                <div class="two fields">
+                                    <div class="field">
+                                        <select class="ui fluid search dropdown" id="add_element_to_layer">
+            <option value="1">1</option>
+          </select>
+                                    </div>
+                                    <div class="field">
+                                        <input type="text" id="add_layer_content" maxlength="4" placeholder="Add Layer">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <button type='button' id="" onClick="addLayer()" class="ui button fluid">Add</button>
+
+
+
+                    </form>
+
+                    <!--  <div class="ui labeled input fluid">
+                        <div class="ui label">
+                            Add Layer
+                        </div>
+                        <input id="layer_content" type="text" placeholder="20">
+                    </div>
+                    <br>
+                    <select class="ui search dropdown fluid" name="accountType">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>-->
+
+                    <h4 class="ui dividing header">
+                        Set Type
+                    </h4>
 
                     <div class="ui vertical menu fluid">
 
@@ -148,6 +230,12 @@
 
                     </div>
                     <br><br>
+
+
+                    <h3 class="ui dividing header">
+                        Elements
+                    </h3>
+
 
                     <table id="elementTable" class="ui celled table">
                         <thead>
@@ -207,6 +295,20 @@
         var elements = [];
 
 
+        function addLayer() {
+            var select = document.getElementById('current_layer_dropdown');
+            var new_layer = document.getElementById('add_layer_content').value;
+
+
+            select.options[select.options.length] = new Option(new_layer, new_layer);
+
+            console.log("added");
+            select = document.getElementById('add_element_to_layer');
+            select.options[select.options.length] = new Option(new_layer, new_layer);
+
+
+        }
+
         function exportToXML() {
             var xml = new XMLWriter();
             xml.BeginNode("Elements");
@@ -244,6 +346,9 @@
                     xml.BeginNode("Width");
                     xml.WriteString(elements[i].width.toString());
                     xml.EndNode();
+                    xml.BeginNode("Layer");
+                    xml.WriteString(elements[i].layer.toString());
+                    xml.EndNode();
                     /**/
                     xml.EndNode();
 
@@ -271,13 +376,13 @@
             populateTable();
         }
 
-        function addElementToList(id, type, text, fontSize, width, height) {
-            var elementToAdd = new ElementDataType(id, type, text, "0", "0", fontSize, width, height);
+        function addElementToList(id, type, text, fontSize, width, height, layer) {
+            var elementToAdd = new ElementDataType(id, type, text, "0", "0", fontSize, width, height, layer);
             elements.push(elementToAdd);
             populateTable();
         }
 
-        function ElementDataType(id, type, text, xCoordinate, yCoordinate, fontSize, width, height) {
+        function ElementDataType(id, type, text, xCoordinate, yCoordinate, fontSize, width, height, layer) {
             this.id = id;
             this.type = type;
             this.text = text;
@@ -286,6 +391,7 @@
             this.fontSize = fontSize;
             this.width = width;
             this.height = height;
+            this.layer = layer;
         }
 
         function populateTable() {
@@ -326,7 +432,8 @@
             var width = document.getElementById('width_content').value;
             var height = document.getElementById('height_content').value;
             var fontSize = document.getElementById('font-size_content').value;
-
+            // var layer = document.getElementById('add_layer_content').value;
+            var layer = $(add_element_to_layer).val();
 
             var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
 
@@ -337,7 +444,7 @@
             label_count.innerHTML = currentLabelCount + 1;
 
 
-            addElementToList(indexCounter, "label", text, fontSize, width, height);
+            addElementToList(indexCounter, "label", text, fontSize, width, height, layer);
             indexCounter = indexCounter + 1;
         }
 
@@ -346,6 +453,8 @@
             var width = document.getElementById('width_content').value;
             var height = document.getElementById('height_content').value;
             var fontSize = document.getElementById('font-size_content').value;
+            var layer = $(add_element_to_layer).val();
+
 
 
 
@@ -358,7 +467,7 @@
             var currentTextfieldCount = parseInt($('#textfield_count').html());
             textfield_count.innerHTML = currentTextfieldCount + 1;
 
-            addElementToList(indexCounter, "textfield", text, fontSize, width, height);
+            addElementToList(indexCounter, "textfield", text, fontSize, width, height, layer);
             indexCounter = indexCounter + 1;
         }
 
@@ -369,6 +478,7 @@
             var height = document.getElementById('height_content').value;
             var height = document.getElementById('height_content').value;
             var fontSize = document.getElementById('font-size_content').value;
+            var layer = $(add_element_to_layer).val();
 
 
 
@@ -381,7 +491,7 @@
             var currentButtonCount = parseInt($('#button_count').html());
             button_count.innerHTML = currentButtonCount + 1;
 
-            addElementToList(indexCounter, "button", text, fontSize, width, height);
+            addElementToList(indexCounter, "button", text, fontSize, width, height, layer);
             indexCounter = indexCounter + 1;
         }
 
@@ -426,8 +536,9 @@
             });
 
         function dragMoveListener(event) {
-
-            if (1 == 1) {
+            var elementDraggedID = parseInt(event.target.querySelector('p').id);
+            var indexInElementsArray = elements.findIndex(z => z.id == elementDraggedID);
+            if (elements[indexInElementsArray].layer == $(current_layer_dropdown).val()) {
                 var target = event.target,
                     // keep the dragged position in the data-x/data-y attributes
                     x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -444,8 +555,7 @@
 
                 /*get id */
                 /*pass data to populateTable*/
-                var elementDraggedID = parseInt(event.target.querySelector('p').id);
-                var indexInElementsArray = elements.findIndex(z => z.id == elementDraggedID)
+
                 elements[indexInElementsArray].xCoordinate = Math.trunc(x);
                 elements[indexInElementsArray].yCoordinate = Math.trunc(y);
                 populateTable();
