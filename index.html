@@ -37,9 +37,9 @@
     </style>
     <script>
         /*   $(document).ready(function() {
-                                                                                                                                                                                    $('.ui.dropdown')
-                                                                                                                                                                                        .dropdown();
-                                                                                                                                                                                });*/
+                                                                                                                                                                                                    $('.ui.dropdown')
+                                                                                                                                                                                                        .dropdown();
+                                                                                                                                                                                                });*/
 
     </script>
 
@@ -309,6 +309,31 @@
         var elements = [];
 
 
+        function addLayerFromImport(layer) {
+            if (checkIfLayerExists(layer) == false) {
+                var select = document.getElementById('current_layer_dropdown');
+                var new_layer = layer;
+
+
+                select.options[select.options.length] = new Option(new_layer, new_layer);
+
+                console.log("added");
+                select = document.getElementById('add_element_to_layer');
+                select.options[select.options.length] = new Option(new_layer, new_layer);
+            }
+        }
+
+        function checkIfLayerExists(layer) {
+            var exists = false;
+            $('#current_layer_dropdown option').each(function() {
+                if (this.value == layer) {
+                    exists = true;
+                    return false;
+                }
+            });
+            return exists;
+        }
+
         function addLayer() {
             var select = document.getElementById('current_layer_dropdown');
             var new_layer = document.getElementById('add_layer_content').value;
@@ -400,6 +425,7 @@
             var elementToAdd = new ElementDataType(id, type, text, xCoordinate, yCoordinate, fontSize, width, height, layer);
             elements.push(elementToAdd);
             populateTable();
+            addLayerFromImport(layer);
             //add layer here
             if (type == "label") {
                 add_labelFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate);
@@ -412,7 +438,7 @@
 
         function add_labelFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
 
-            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
+            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px);"  data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
 
             $("#start").append(toBeAppended);
 
@@ -422,7 +448,7 @@
 
         function add_buttonFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
 
-            var toBeAppended = '<div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "      disabled>' + text + '</button></div>';
+            var toBeAppended = '<div id="drag' + indexCounter + '" class="draggable" style = "position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px)" data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "      disabled>' + text + '</button></div>';
 
             $("#start").append(toBeAppended);
 
@@ -436,7 +462,7 @@
 
 
 
-            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; " placeholder="' + text + '"></div></div>';
+            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px)"  data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; " placeholder="' + text + '"></div></div>';
 
             $("#start").append(toBeAppended);
 
