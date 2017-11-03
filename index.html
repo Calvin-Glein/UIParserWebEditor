@@ -37,9 +37,9 @@
     </style>
     <script>
         /*   $(document).ready(function() {
-                                                                                                                                                                                                    $('.ui.dropdown')
-                                                                                                                                                                                                        .dropdown();
-                                                                                                                                                                                                });*/
+                                                                                                                                                                                                                                                                                                                    $('.ui.dropdown')
+                                                                                                                                                                                                                                                                                                                        .dropdown();
+                                                                                                                                                                                                                                                                                                                });*/
 
     </script>
 
@@ -253,6 +253,8 @@
                                 <th>Layer</th>
 
                                 <th>Action</th>
+                                <th></th>
+
 
                             </tr>
                         </thead>
@@ -494,19 +496,88 @@
                     var tr = "<tr>";
                     tr += "<td>" + elements[i].type + "</td>";
                     tr += "<td>" + elements[i].text + "</td>";
-                    tr += "<td>" + elements[i].xCoordinate + "</td>";
-                    tr += "<td>" + elements[i].yCoordinate + "</td>";
-                    tr += "<td>" + elements[i].height + "</td>";
-                    tr += "<td>" + elements[i].width + "</td>";
-                    tr += "<td>" + elements[i].fontSize + "</td>";
+                    tr += "<td contenteditable='true'>" + elements[i].xCoordinate + "</td>";
+                    tr += "<td contenteditable='true'>" + elements[i].yCoordinate + "</td>";
+                    tr += "<td contenteditable='true'>" + elements[i].height + "</td>";
+                    tr += "<td contenteditable='true'>" + elements[i].width + "</td>";
+                    tr += "<td contenteditable='true'>" + elements[i].fontSize + "</td>";
                     tr += "<td>" + elements[i].layer + "</td>";
-
+                    tr += "<td><button onclick = 'editElement(this.id, this)' id = " + elements[i].id + " class='green ui button fluid'>Edit</button></td>";
                     tr += "<td><button onclick = 'deleteElement(this.id)' id = " + elements[i].id + " class='negative ui button fluid'>Delete</button></td>";
+
                     tr += "</tr>";
                     t += tr;
                 }
             }
             document.getElementById("elementTable").innerHTML += t;
+        }
+
+        function editElement(elementID, uiElement) {
+            var rowNumber =
+                $(uiElement).closest('td').parent()[0].sectionRowIndex + 1;
+
+
+            var table = document.getElementById('elementTable');
+            /*for (var r = 0, n = table.rows.length; r < n; r++) {
+                for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
+                    alert(table.rows[r].cells[c].innerHTML);
+                }
+            }*/
+
+            var xCoordinate = table.rows[rowNumber].cells[2].innerHTML;
+            var yCoordinate = table.rows[rowNumber].cells[3].innerHTML;
+            var height = table.rows[rowNumber].cells[4].innerHTML;
+
+            var width = table.rows[rowNumber].cells[5].innerHTML;
+            var fontSize = table.rows[rowNumber].cells[6].innerHTML;
+
+            editElementUpdateUI(elementID, xCoordinate, yCoordinate, width, height, fontSize)
+
+
+        }
+
+
+        function editElementUpdateUI(elementID, xCoordinate, yCoordinate, width, height, fontSize) {
+
+
+
+
+            var indexInElementsArray = elements.findIndex(z => z.id == parseInt(elementID));
+            // elements[indexInElementsArray].id = -1;
+
+            var dragID = "drag" + elementID;
+            $('#' + dragID).remove();
+
+
+
+
+
+
+
+            elements[indexInElementsArray].xCoordinate = xCoordinate;
+            elements[indexInElementsArray].yCoordinate = yCoordinate;
+            elements[indexInElementsArray].width = width;
+            elements[indexInElementsArray].height = height;
+            elements[indexInElementsArray].fontSize = fontSize;
+
+
+
+            /*  elements.push(elementToAdd);*/
+            populateTable();
+            if (elements[indexInElementsArray].type == "label") {
+                var toBeAppended = ' <div id="drag' + indexInElementsArray + '" class="draggable" style = "position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px);"  data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"> <p id = "' + indexInElementsArray + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + elements[indexInElementsArray].text + '</div></div>';
+
+                $("#start").append(toBeAppended);
+
+            } else if (elements[indexInElementsArray].type == "textfield") {
+                var toBeAppended = ' <div id="drag' + indexInElementsArray + '" class="draggable" style = "position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px)"  data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"><p id = "' + indexInElementsArray + '"></p> <div class=""><input style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; " placeholder="' + elements[indexInElementsArray].text + '"></div></div>';
+
+                $("#start").append(toBeAppended);
+            } else if (elements[indexInElementsArray].type == "button") {
+                var toBeAppended = '<div id="drag' + indexInElementsArray + '" class="draggable" style = "position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px)" data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"><p id = "' + indexInElementsArray + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "      disabled>' + elements[indexInElementsArray].text + '</button></div>';
+
+                $("#start").append(toBeAppended);
+            }
         }
 
         function add_label() {
