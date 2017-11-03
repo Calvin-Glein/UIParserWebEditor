@@ -4,11 +4,14 @@
 <head>
     <title>UI Parser</title>
 
-    <script type="text/javascript" src="C:\Users\Glenn\Desktop\UI Parser\styles\interact.js"></script>
+    <script type="text/javascript" src="styles\interact.js"></script>
     <link rel="stylesheet" type="text/css" href="styles\semantic\semantic.css">
     <script type="text/javascript" src="styles\jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="styles\XMLScript.js"></script>
     <script type="text/javascript" src="styles\Download.js"></script>
+
+    <script type="text/javascript" src="styles\XMLImporter.js"></script>
+
 
 
     <style>
@@ -34,9 +37,9 @@
     </style>
     <script>
         /*   $(document).ready(function() {
-                                                                                                                                                                    $('.ui.dropdown')
-                                                                                                                                                                        .dropdown();
-                                                                                                                                                                });*/
+                                                                                                                                                                                    $('.ui.dropdown')
+                                                                                                                                                                                        .dropdown();
+                                                                                                                                                                                });*/
 
     </script>
 
@@ -255,7 +258,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                             <!--   <td>Add an element</td>
+                                <!--   <td>Add an element</td>
                                 <td>Add an element</td>
                                 <td>Add an element</td>
                                 <td>Add an element</td>
@@ -271,6 +274,9 @@
                     <br><br><br>
 
                     <button id="" onclick="exportToXML()" class="ui blue button fluid">Export</button>
+                    <br>
+                    <button id="" onclick="loadXMLDoc()" class="ui blue button fluid">Import</button>
+
 
 
 
@@ -279,7 +285,7 @@
             <div class="twelve wide column" style="">
 
                 <div id="container" style="height: 768px; width: 1366px;" style="position: relative">
-                    <div style="position: absolute; height: 768px; width: 1366px; background-color: lightgray; border: solid 1px; ">
+                    <div style="position: absolute; height: 768px; width: 1366px; background-color: white; border: solid 1px; ">
                     </div>
                     <div id="start" style="height: 100%;"></div>
 
@@ -292,6 +298,10 @@
 
     </div>
 
+    <script>
+
+
+    </script>
 
 
     <script>
@@ -386,6 +396,57 @@
             populateTable();
         }
 
+        function addElementToListFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
+            var elementToAdd = new ElementDataType(id, type, text, xCoordinate, yCoordinate, fontSize, width, height, layer);
+            elements.push(elementToAdd);
+            populateTable();
+            //add layer here
+            if (type == "label") {
+                add_labelFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate);
+            } else if (type == "textfield") {
+                add_textfieldFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate);
+            } else if (type == "button") {
+                add_buttonFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate);
+            }
+        }
+
+        function add_labelFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
+
+            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
+
+            $("#start").append(toBeAppended);
+
+            var currentLabelCount = parseInt($('#label_count').html());
+            label_count.innerHTML = currentLabelCount + 1;
+        }
+
+        function add_buttonFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
+
+            var toBeAppended = '<div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "      disabled>' + text + '</button></div>';
+
+            $("#start").append(toBeAppended);
+
+
+            /*   $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: 20px;" class="" disabled>' + text + '</button></div>');*/
+            var currentButtonCount = parseInt($('#button_count').html());
+            button_count.innerHTML = currentButtonCount + 1;
+        }
+
+        function add_textfieldFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
+
+
+
+            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; " placeholder="' + text + '"></div></div>';
+
+            $("#start").append(toBeAppended);
+
+            /*    $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: 20px;" type="text" placeholder="' + text + '"></div></div>');*/
+
+            var currentTextfieldCount = parseInt($('#textfield_count').html());
+            textfield_count.innerHTML = currentTextfieldCount + 1;
+        }
+
+
         function ElementDataType(id, type, text, xCoordinate, yCoordinate, fontSize, width, height, layer) {
             this.id = id;
             this.type = type;
@@ -445,7 +506,6 @@
 
             $("#start").append(toBeAppended);
 
-            console.log(toBeAppended);
             var currentLabelCount = parseInt($('#label_count').html());
             label_count.innerHTML = currentLabelCount + 1;
 
@@ -581,6 +641,7 @@
 
 
 
+    <script></script>
 </body>
 
 </html>
