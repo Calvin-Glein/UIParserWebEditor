@@ -37,9 +37,9 @@
     </style>
     <script>
         /*   $(document).ready(function() {
-                                                                                                                                                                                                                                                                                                                                                                            $('.ui.dropdown')
-                                                                                                                                                                                                                                                                                                                                                                                .dropdown();
-                                                                                                                                                                                                                                                                                                                                                                        });*/
+                                                                                                                                                                                                                                                                                                                                                                                    $('.ui.dropdown')
+                                                                                                                                                                                                                                                                                                                                                                                        .dropdown();
+                                                                                                                                                                                                                                                                                                                                                                                });*/
 
     </script>
 
@@ -217,24 +217,24 @@
                     <h4 class="ui dividing header">
                         Set Type
                     </h4>
-  <div class="ui segment">
-                    <div class="ui vertical menu fluid">
+                    <div class="ui segment">
+                        <div class="ui vertical menu fluid">
 
 
-                        <a class="item" onclick="add_label()">
+                            <a class="item" onclick="add_label()">
  Label
 <div id="label_count" class="ui teal left label">0</div>
 </a>
-                        <a class="item" onclick="add_textfield()">
+                            <a class="item" onclick="add_textfield()">
                             Textfield
                             <div id = "textfield_count" class="ui teal left label">0</div>
                           </a>
-                        <a class="item" onclick="add_button()">
+                            <a class="item" onclick="add_button()">
                             Button
                             <div id = "button_count" class="ui teal left label">0</div>
                           </a>
 
-                    </div>
+                        </div>
                     </div>
                     <br><br>
 
@@ -281,7 +281,7 @@
 
 
                     <h3 class="ui dividing header">
-                         Import An Existing XML
+                        Import An Existing XML
                     </h3>
 
                     <div class="ui segment">
@@ -296,7 +296,7 @@
                     <br>
 
                     <h3 class="ui dividing header">
-                         Export XML
+                        Export XML
                     </h3>
 
 
@@ -315,7 +315,7 @@
                                 console.log(textFromFileLoaded);
 
                                 loadXMLDoc(textFromFileLoaded);
-                            };
+                                };
 
                             fileReader.readAsText(fileToLoad, "UTF-8");
                         }
@@ -464,6 +464,7 @@
         }
 
         function addElementToListFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
+            
             var elementToAdd = new ElementDataType(id, type, text, xCoordinate, yCoordinate, fontSize, width, height, layer);
             elements.push(elementToAdd);
             populateTable();
@@ -476,11 +477,14 @@
             } else if (type == "button") {
                 add_buttonFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate);
             }
+            else{
+                alert('There is a problem in parsing the XML file')
+            }
         }
 
         function add_labelFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
 
-            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px);"  data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
+            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "border: 1px dotted black; position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px);"  data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
 
             $("#start").append(toBeAppended);
 
@@ -605,7 +609,7 @@
             /*  elements.push(elementToAdd);*/
             populateTable();
             if (elements[indexInElementsArray].type == "label") {
-                var toBeAppended = ' <div id="drag' + indexInElementsArray + '" class="draggable" style = "position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px);"  data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"> <p id = "' + indexInElementsArray + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + elements[indexInElementsArray].text + '</div></div>';
+                var toBeAppended = ' <div id="drag' + indexInElementsArray + '" class="draggable" style = " border: 1px dotted black; position: absolute; transform: translate(' + xCoordinate + 'px, ' + yCoordinate + 'px);"  data-x = "' + xCoordinate + '" data-y = "' + yCoordinate + '"> <p id = "' + indexInElementsArray + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + elements[indexInElementsArray].text + '</div></div>';
 
                 $("#start").append(toBeAppended);
 
@@ -639,7 +643,7 @@
             // var layer = document.getElementById('add_layer_content').value;
             var layer = $(add_element_to_layer).val();
 
-            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
+            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute; border: 1px dotted black; "> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
 
             $("#start").append(toBeAppended);
 
