@@ -37,9 +37,9 @@
     </style>
     <script>
         /*   $(document).ready(function() {
-                                                                                                                                                                                                                                                                                                                                                                                    $('.ui.dropdown')
-                                                                                                                                                                                                                                                                                                                                                                                        .dropdown();
-                                                                                                                                                                                                                                                                                                                                                                                });*/
+                                                                                                                                                                                                                                                                                                                                                                                                                                    $('.ui.dropdown')
+                                                                                                                                                                                                                                                                                                                                                                                                                                        .dropdown();
+                                                                                                                                                                                                                                                                                                                                                                                                                                });*/
 
     </script>
 
@@ -315,7 +315,7 @@
                                 console.log(textFromFileLoaded);
 
                                 loadXMLDoc(textFromFileLoaded);
-                                };
+                            };
 
                             fileReader.readAsText(fileToLoad, "UTF-8");
                         }
@@ -378,15 +378,11 @@
 
         function addLayer() {
             var select = document.getElementById('current_layer_dropdown');
-            var new_layer = document.getElementById('add_layer_content').value;
+            var new_layer =
+                select.options[select.options.length] = new Option(new_layer, new_layer);
 
-
-            select.options[select.options.length] = new Option(new_layer, new_layer);
-
-            console.log("added");
             select = document.getElementById('add_element_to_layer');
             select.options[select.options.length] = new Option(new_layer, new_layer);
-
 
         }
 
@@ -464,7 +460,7 @@
         }
 
         function addElementToListFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate) {
-            
+
             var elementToAdd = new ElementDataType(id, type, text, xCoordinate, yCoordinate, fontSize, width, height, layer);
             elements.push(elementToAdd);
             populateTable();
@@ -476,8 +472,7 @@
                 add_textfieldFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate);
             } else if (type == "button") {
                 add_buttonFromImport(id, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate);
-            }
-            else{
+            } else {
                 alert('There is a problem in parsing the XML file')
             }
         }
@@ -572,10 +567,19 @@
             var yCoordinate = table.rows[rowNumber].cells[3].innerHTML;
             var height = table.rows[rowNumber].cells[4].innerHTML;
 
+
+
             var width = table.rows[rowNumber].cells[5].innerHTML;
             var fontSize = table.rows[rowNumber].cells[6].innerHTML;
 
-            editElementUpdateUI(elementID, xCoordinate, yCoordinate, width, height, fontSize)
+            if (isNaN(xCoordinate) || isNaN(yCoordinate) || isNaN(height) || isNaN(width) || isNaN(fontSize)) {
+                alert("Edit failed, your input is not a number!");
+                populateTable();
+            } else {
+                editElementUpdateUI(elementID, xCoordinate, yCoordinate, width, height, fontSize)
+            }
+
+
 
 
         }
@@ -643,16 +647,23 @@
             // var layer = document.getElementById('add_layer_content').value;
             var layer = $(add_element_to_layer).val();
 
-            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute; border: 1px dotted black; "> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
+            if (isNaN(width) || isNaN(height) || isNaN(fontSize)) {
+                alert("Wrong input type, check your input values for width, height and font size.");
+            } else {
+                var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute; border: 1px dotted black; "> <p id = "' + indexCounter + '"></p> <div class="" style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "> ' + text + '</div></div>';
 
-            $("#start").append(toBeAppended);
+                $("#start").append(toBeAppended);
 
-            var currentLabelCount = parseInt($('#label_count').html());
-            label_count.innerHTML = currentLabelCount + 1;
+                var currentLabelCount = parseInt($('#label_count').html());
+                label_count.innerHTML = currentLabelCount + 1;
 
 
-            addElementToList(indexCounter, "label", text, fontSize, width, height, layer);
-            indexCounter = indexCounter + 1;
+                addElementToList(indexCounter, "label", text, fontSize, width, height, layer);
+                indexCounter = indexCounter + 1;
+            }
+
+
+
         }
 
         function add_textfield() {
@@ -662,20 +673,23 @@
             var fontSize = document.getElementById('font-size_content').value;
             var layer = $(add_element_to_layer).val();
 
+            if (isNaN(width) || isNaN(height) || isNaN(fontSize)) {
+                alert("Wrong input type, check your input values for width, height and font size.");
+            } else {
 
 
+                var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; " placeholder="' + text + '"></div></div>';
 
-            var toBeAppended = ' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; " placeholder="' + text + '"></div></div>';
+                $("#start").append(toBeAppended);
 
-            $("#start").append(toBeAppended);
+                /*    $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: 20px;" type="text" placeholder="' + text + '"></div></div>');*/
 
-            /*    $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><input style = "font-size: 20px;" type="text" placeholder="' + text + '"></div></div>');*/
+                var currentTextfieldCount = parseInt($('#textfield_count').html());
+                textfield_count.innerHTML = currentTextfieldCount + 1;
 
-            var currentTextfieldCount = parseInt($('#textfield_count').html());
-            textfield_count.innerHTML = currentTextfieldCount + 1;
-
-            addElementToList(indexCounter, "textfield", text, fontSize, width, height, layer);
-            indexCounter = indexCounter + 1;
+                addElementToList(indexCounter, "textfield", text, fontSize, width, height, layer);
+                indexCounter = indexCounter + 1;
+            }
         }
 
 
@@ -687,19 +701,22 @@
             var fontSize = document.getElementById('font-size_content').value;
             var layer = $(add_element_to_layer).val();
 
+            if (isNaN(width) || isNaN(height) || isNaN(fontSize)) {
+                alert("Wrong input type, check your input values for width, height and font size.");
+            } else {
+
+                var toBeAppended = '<div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "      disabled>' + text + '</button></div>';
+
+                $("#start").append(toBeAppended);
 
 
-            var toBeAppended = '<div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: ' + fontSize + 'px; width : ' + width + 'px ; height : ' + height + 'px; "      disabled>' + text + '</button></div>';
+                /*   $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: 20px;" class="" disabled>' + text + '</button></div>');*/
+                var currentButtonCount = parseInt($('#button_count').html());
+                button_count.innerHTML = currentButtonCount + 1;
 
-            $("#start").append(toBeAppended);
-
-
-            /*   $("#start").append(' <div id="drag' + indexCounter + '" class="draggable" style = "position: absolute;"><p id = "' + indexCounter + '"></p> <div class=""><button style = "font-size: 20px;" class="" disabled>' + text + '</button></div>');*/
-            var currentButtonCount = parseInt($('#button_count').html());
-            button_count.innerHTML = currentButtonCount + 1;
-
-            addElementToList(indexCounter, "button", text, fontSize, width, height, layer);
-            indexCounter = indexCounter + 1;
+                addElementToList(indexCounter, "button", text, fontSize, width, height, layer);
+                indexCounter = indexCounter + 1;
+            }
         }
 
     </script>
@@ -707,6 +724,19 @@
     <script>
         interact('.draggable')
             .draggable({
+                snap: {
+                    targets: [
+                        interact.createSnapGrid({
+                            x: 10,
+                            y: 10
+                        })
+                    ],
+                    range: Infinity,
+                    relativePoints: [{
+                        x: 0,
+                        y: 0
+                    }]
+                },
                 // enable inertial throwing
                 inertia: true,
                 // keep the element within the area of it's parent

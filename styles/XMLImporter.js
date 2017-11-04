@@ -1,17 +1,17 @@
 function loadXMLDoc(xmlString) {
-/*    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            myFunction(this);
-                console.log("loadxmldoc");
+    /*    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                myFunction(this);
+                    console.log("loadxmldoc");
 
-        }
-    };
+            }
+        };
 
-    xmlhttp.open("GET", xmlString, true);
-        xmlhttp.setRequestHeader('Content-Type', 'text/plain; charset="utf-8"');
-    xmlhttp.send();*/
-                myFunction(xmlString);
+        xmlhttp.open("GET", xmlString, true);
+            xmlhttp.setRequestHeader('Content-Type', 'text/plain; charset="utf-8"');
+        xmlhttp.send();*/
+    myFunction(xmlString);
 
 }
 
@@ -28,7 +28,14 @@ function myFunction(xml) {
          "</td><td>" +
          x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
          "</td></tr>";*/
-        var text = x[i].getElementsByTagName("Text")[0].childNodes[0].nodeValue;
+
+
+        //if textsField is empty
+        try {
+            var text = x[i].getElementsByTagName("Text")[0].childNodes[0].nodeValue;
+        } catch (err) {
+            var text = "";
+        }
 
         var type = x[i].getElementsByTagName("Type")[0].childNodes[0].nodeValue;
 
@@ -48,7 +55,7 @@ function myFunction(xml) {
         addElementToListFromImport(indexCounter, type, text, fontSize, width, height, layer, yCoordinate, xCoordinate);
 
         indexCounter = indexCounter + 1;
-        
+
         console.log(i);
     }
 }
