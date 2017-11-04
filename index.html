@@ -37,9 +37,9 @@
     </style>
     <script>
         /*   $(document).ready(function() {
-                                                                                                                                                                                                                                                                                                                    $('.ui.dropdown')
-                                                                                                                                                                                                                                                                                                                        .dropdown();
-                                                                                                                                                                                                                                                                                                                });*/
+                                                                                                                                                                                                                                                                                                                                            $('.ui.dropdown')
+                                                                                                                                                                                                                                                                                                                                                .dropdown();
+                                                                                                                                                                                                                                                                                                                                        });*/
 
     </script>
 
@@ -275,12 +275,41 @@
 
                     <br><br><br>
 
-                    <button id="" onclick="exportToXML()" class="ui blue button fluid">Export</button>
+
+                    <h3 class="ui dividing header">
+                        XML
+                    </h3>
+
+
+                    <input type="file" accept="text/xml" id="fileToLoad" />
+
+                    <!--
+                    <button id="" onclick="loadXMLDoc()" class="ui blue button fluid">Import An Existing XML</button>
+-->
+                    <button id="" onclick="loadFile()" class="ui blue button fluid">Import An Existing XML</button>
+
                     <br>
-                    <button id="" onclick="loadXMLDoc()" class="ui blue button fluid">Import</button>
 
 
+                    <button id="" onclick="exportToXML()" class="ui blue button fluid">Export to XML</button>
+                    <br>
 
+                    <script>
+                        function loadFile() {
+                            var fileToLoad = document.getElementById("fileToLoad").files[0];
+
+                            var fileReader = new FileReader();
+                            fileReader.onload = function(fileLoadedEvent) {
+                                var textFromFileLoaded = fileLoadedEvent.target.result;
+                                console.log(textFromFileLoaded);
+                                
+                                loadXMLDoc(textFromFileLoaded);
+                            };
+
+                            fileReader.readAsText(fileToLoad, "UTF-8");
+                        }
+
+                    </script>
 
                 </div>
             </div>

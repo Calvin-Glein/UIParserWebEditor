@@ -1,13 +1,12 @@
-function loadXMLDoc() {
+function loadXMLDoc(xmlString) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             myFunction(this);
-                console.log("loadxmldoc");
 
         }
     };
-    xmlhttp.open("GET", "elements (34).xml", true);
+    xmlhttp.open("GET", xmlString, true);
     xmlhttp.send();
 }
 
@@ -26,7 +25,7 @@ function myFunction(xml) {
          "</td></tr>";*/
         var text = x[i].getElementsByTagName("Text")[0].childNodes[0].nodeValue;
 
-        var type = x[i].getElementsByTagName("Type")[0].childNodes[0].nodeValue;
+        var type = x[i].getElementsByTagName("Type")[0].childNodes[0].nodeV;
 
         var width = x[i].getElementsByTagName("Width")[0].childNodes[0].nodeValue;
 
