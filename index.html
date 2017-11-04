@@ -37,9 +37,9 @@
     </style>
     <script>
         /*   $(document).ready(function() {
-                                                                                                                                                                                                                                                                                                                                            $('.ui.dropdown')
-                                                                                                                                                                                                                                                                                                                                                .dropdown();
-                                                                                                                                                                                                                                                                                                                                        });*/
+                                                                                                                                                                                                                                                                                                                                                                            $('.ui.dropdown')
+                                                                                                                                                                                                                                                                                                                                                                                .dropdown();
+                                                                                                                                                                                                                                                                                                                                                                        });*/
 
     </script>
 
@@ -127,24 +127,26 @@
                             </div>
                         </div>
                     </div>-->
-                    <div class="ui labeled input fluid">
-                        <div class="ui label">
-                            Font Size
+                    <div class="ui segment">
+                        <div class="ui labeled input fluid">
+                            <div class="ui label">
+                                Font Size
+                            </div>
+                            <input id="font-size_content" type="text" placeholder="20">
                         </div>
-                        <input id="font-size_content" type="text" placeholder="20">
-                    </div>
-                    <div class="ui labeled input fluid">
-                        <div class="ui label">
-                            Height
+                        <div class="ui labeled input fluid">
+                            <div class="ui label">
+                                Height
+                            </div>
+                            <input id="height_content" type="text" placeholder="20">
                         </div>
-                        <input id="height_content" type="text" placeholder="20">
-                    </div>
 
-                    <div class="ui labeled input fluid">
-                        <div class="ui label">
-                            Width
+                        <div class="ui labeled input fluid">
+                            <div class="ui label">
+                                Width
+                            </div>
+                            <input id="width_content" type="text" placeholder="100">
                         </div>
-                        <input id="width_content" type="text" placeholder="100">
                     </div>
                     <!--
                     <div class="ui form">
@@ -161,42 +163,43 @@
                     <h4 class="ui dividing header">
                         Set Layer
                     </h4>
+                    <div class="ui segment">
+
+                        <form class="ui form">
 
 
-                    <form class="ui form">
 
-
-
-                        <!--
+                            <!--
                         <h4 class="ui dividing header">Billing Information</h4>
 -->
 
-                        <div class="fields">
+                            <div class="fields">
 
-                            <div class="sixteen wide field">
-                                <!--
+                                <div class="sixteen wide field">
+                                    <!--
                                 <label>Layer</label>
 -->
-                                <div class="two fields">
-                                    <div class="field">
-                                        <select class="ui fluid search dropdown" id="add_element_to_layer">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <select class="ui fluid search dropdown" id="add_element_to_layer">
             <option value="1">1</option>
           </select>
+                                        </div>
+                                        <div class="field">
+                                            <input type="text" id="add_layer_content" maxlength="4" placeholder="Add Layer">
+                                        </div>
                                     </div>
-                                    <div class="field">
-                                        <input type="text" id="add_layer_content" maxlength="4" placeholder="Add Layer">
-                                    </div>
+
                                 </div>
 
                             </div>
-
-                        </div>
-                        <button type='button' id="" onClick="addLayer()" class="ui button fluid">Add New Layer</button>
+                            <button type='button' id="" onClick="addLayer()" class="ui button fluid">Add New Layer</button>
 
 
 
-                    </form>
+                        </form>
 
+                    </div>
                     <!--  <div class="ui labeled input fluid">
                         <div class="ui label">
                             Add Layer
@@ -214,7 +217,7 @@
                     <h4 class="ui dividing header">
                         Set Type
                     </h4>
-
+  <div class="ui segment">
                     <div class="ui vertical menu fluid">
 
 
@@ -231,6 +234,7 @@
                             <div id = "button_count" class="ui teal left label">0</div>
                           </a>
 
+                    </div>
                     </div>
                     <br><br>
 
@@ -277,21 +281,28 @@
 
 
                     <h3 class="ui dividing header">
-                        XML
+                         Import An Existing XML
+                    </h3>
+
+                    <div class="ui segment">
+                        <input type="file" accept="text/xml" id="fileToLoad" />
+
+                        <!--
+                    <button id="" onclick="loadXMLDoc()" class="ui blue button fluid">Import An Existing XML</button>
+-->
+                        <button id="" onclick="loadFile()" class="ui blue button fluid">Import</button>
+
+                    </div>
+                    <br>
+
+                    <h3 class="ui dividing header">
+                         Export XML
                     </h3>
 
 
-                    <input type="file" accept="text/xml" id="fileToLoad" />
-
-                    <!--
-                    <button id="" onclick="loadXMLDoc()" class="ui blue button fluid">Import An Existing XML</button>
--->
-                    <button id="" onclick="loadFile()" class="ui blue button fluid">Import An Existing XML</button>
-
-                    <br>
-
-
-                    <button id="" onclick="exportToXML()" class="ui blue button fluid">Export to XML</button>
+                    <div class="ui segment">
+                        <button id="" onclick="exportToXML()" class="ui blue button fluid">Export</button>
+                    </div>
                     <br>
 
                     <script>
@@ -302,7 +313,7 @@
                             fileReader.onload = function(fileLoadedEvent) {
                                 var textFromFileLoaded = fileLoadedEvent.target.result;
                                 console.log(textFromFileLoaded);
-                                
+
                                 loadXMLDoc(textFromFileLoaded);
                             };
 
