@@ -338,6 +338,8 @@
         </div>
 
 
+        
+        
     </div>
 
     <script>
@@ -439,6 +441,7 @@
             console.log(xml.ToString());
 
             downloadXML(xml.ToString(), 'elements.xml', 'text/plain');
+            
         }
 
         function deleteElement(deleteID) {
@@ -724,7 +727,7 @@
     <script>
         interact('.draggable')
             .draggable({
-                snap: {
+            /*    snap: {
                     targets: [
                         interact.createSnapGrid({
                             x: 10,
@@ -736,7 +739,7 @@
                         x: 0,
                         y: 0
                     }]
-                },
+                },*/
                 // enable inertial throwing
                 inertia: true,
                 // keep the element within the area of it's parent
